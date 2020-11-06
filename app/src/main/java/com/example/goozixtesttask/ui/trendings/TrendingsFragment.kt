@@ -1,30 +1,36 @@
 package com.example.goozixtesttask.ui.trendings
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.goozixtesttask.R
+import com.example.goozixtesttask.databinding.TrendingsFragmentBinding
 
 class TrendingsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TrendingsFragment()
+    private val viewModel: TrendingsViewModel by lazy {
+        ViewModelProvider(this).get(TrendingsViewModel::class.java)
     }
-
-    private lateinit var viewModel: TrendingsViewModel
+    private lateinit var binding: TrendingsFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.trendings_fragment,
+            container, false)
+
+        binding.lifecycleOwner = this
+
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(TrendingsViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding.viewModel = viewModel
     }
-
 }

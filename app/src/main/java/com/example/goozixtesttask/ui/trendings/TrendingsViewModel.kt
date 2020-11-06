@@ -1,8 +1,8 @@
-package com.example.goozixtesttask.ui.main
+package com.example.goozixtesttask.ui.trendings
 
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
+class TrendingsViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 
     val API_KEY = "CTnxGn5EhQMdBVjMiiCfdF2RqISxV5vB"

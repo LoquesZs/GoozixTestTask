@@ -2,7 +2,7 @@ package com.example.goozixtesttask
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.goozixtesttask.ui.main.MainFragment
+import com.example.goozixtesttask.ui.trendings.TrendingsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, TrendingsFragment.newInstance())
                     .commitNow()
         }
     }

@@ -1,4 +1,4 @@
-package com.example.goozixtesttask.ui.main
+package com.example.goozixtesttask.ui.trendings
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.goozixtesttask.R
 
-class MainFragment : Fragment() {
+class TrendingsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = TrendingsFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: TrendingsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -23,7 +23,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(TrendingsViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

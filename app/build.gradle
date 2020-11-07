@@ -51,6 +51,7 @@ dependencies {
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_extension_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_extension_version"
 
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
@@ -64,7 +65,10 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+
+    // Moshi
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

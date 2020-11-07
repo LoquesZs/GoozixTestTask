@@ -1,13 +1,8 @@
 package com.example.goozixtesttask.ui.trendings
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.goozixtesttask.network.GiphyApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
 // ViewModel class attached to the TrendingsFragment
 
@@ -23,17 +18,16 @@ class TrendingsViewModel : ViewModel() {
     }
 
     private fun getGiphyTrendingProperties() {
-        GiphyApi.retrofitService.getProperties().enqueue(
-            object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    _response.value = response.body()
-                }
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    _response.value = "Failure" + t.message
-                }
+        viewModelScope.launch {
+            try {
+                val giphyModel = GiphyApi.retrofitService.getProperties()
+                _response.value = giphyModel.data[0].images.original.url
+            } catch (e: Exception) {
+                _response.value = e.message
             }
-        )
+        }
+
     }
 
 }

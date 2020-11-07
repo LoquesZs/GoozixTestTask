@@ -1,9 +1,11 @@
 package com.example.goozixtesttask.network
 
+import com.squareup.moshi.Json
+
 //Model classes for Giphy response
 //Ignore discarded Meta and Pagination objects
 
-data class GiphyModel (val data: List<Data>)
+data class GiphyModel (@Json(name = "data") val gifList: List<Data>)
 
 data class Data (
     val id : String,

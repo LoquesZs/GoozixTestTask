@@ -1,5 +1,8 @@
 package com.example.goozixtesttask.utils
 
+import android.content.Context
+import android.graphics.Point
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -12,15 +15,28 @@ import com.example.goozixtesttask.network.Original
 
 @BindingAdapter("imageUrl")
 fun bindImage(imageView: ImageView, original: Original?) {
+
+    /**
+     * We need WindowManager and display size because the use of Glide's placeholder deals with bug
+     * that makes downloaded Gif image's size fit the size of placeholder image.
+     **/
+
+    val windowManager = imageView.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val display = windowManager.defaultDisplay
+    val size = Point()
+    display.getSize(size)
+    val placeholderWidth = size.x
+    val placeholderHeight = size.y
     original?.url?.let {
         val imageUri = original.url.toUri().buildUpon().scheme("https").build()
         Glide.with(imageView.context)
             .load(imageUri)
-            .apply(RequestOptions()
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .override(placeholderWidth, placeholderHeight)
+                    .error(R.drawable.ic_broken_image)
             )
-            .override(original.width, original.height)
             .into(imageView)
     }
 }

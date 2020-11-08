@@ -45,7 +45,6 @@ class TrendingsViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 _response.value = e.message
-                Log.d("VMGGSM", _response.value ?: "Null")
             }
         }
     }

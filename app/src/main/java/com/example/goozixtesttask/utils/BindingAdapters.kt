@@ -9,6 +9,7 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.goozixtesttask.R
 import com.example.goozixtesttask.network.Data
@@ -33,6 +34,7 @@ fun bindImage(imageView: ImageView, original: Original?) {
         val imageUri = original.url.toUri().buildUpon().scheme("https").build()
         Glide.with(imageView.context)
             .load(imageUri)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)

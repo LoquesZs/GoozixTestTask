@@ -1,18 +1,19 @@
 package com.example.goozixtesttask.ui.trendings
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.goozixtesttask.network.Data
 import com.example.goozixtesttask.network.GiphyApi
 import kotlinx.coroutines.launch
 
+enum class GiphyApiStatus { LOADING, ERROR, DONE, NO_MATCHES }
+
 // ViewModel class attached to the TrendingsFragment
 
 class TrendingsViewModel : ViewModel() {
 
-    private val _response = MutableLiveData<String>()
-    val response: LiveData<String>
-        get() = _response
+    private val _status = MutableLiveData<GiphyApiStatus>()
+    val status: LiveData<GiphyApiStatus>
+        get() = _status
 
     val searchRequest = MutableLiveData<String>()
 
@@ -24,27 +25,46 @@ class TrendingsViewModel : ViewModel() {
         getGiphyTrendingModel()
     }
 
-    private fun getGiphyTrendingModel() {
-
+    fun getGiphyTrendingModel() {
+        _status.value = GiphyApiStatus.LOADING
         viewModelScope.launch {
             try {
                 _models.value = GiphyApi.retrofitService.getTrendingModel().gifList
-                _response.value = "Data retrieved"
+                _status.value = GiphyApiStatus.DONE
             } catch (e: Exception) {
-                _response.value = e.message
+                _status.value = GiphyApiStatus.ERROR
+                _models.value = ArrayList()
             }
         }
 
     }
 
     fun getGiphySearchModel() {
+        _status.value = GiphyApiStatus.LOADING
         viewModelScope.launch {
             try {
-                _models.value = searchRequest.value?.let {
-                    GiphyApi.retrofitService.getSearchModel(it).gifList
+                if(GiphyApi.retrofitService.getSearchModel(searchRequest.value!!).gifList.isEmpty()){
+                    _status.value = GiphyApiStatus.NO_MATCHES
+                    _models.value = ArrayList()
+                } else {
+                    _models.value = GiphyApi.retrofitService
+                        .getSearchModel(searchRequest.value!!)
+                        .gifList
+                    _status.value = GiphyApiStatus.DONE
                 }
             } catch (e: Exception) {
-                _response.value = e.message
+                _status.value = GiphyApiStatus.ERROR
+                _models.value = ArrayList()
+            }
+        }
+    }
+
+    fun getGiphyCache() {
+        viewModelScope.launch {
+            try {
+
+            } catch (e: Exception) {
+
             }
         }
     }

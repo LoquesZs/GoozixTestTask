@@ -2,6 +2,7 @@ package com.example.goozixtesttask.utils
 
 import android.content.Context
 import android.graphics.Point
+import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -12,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.goozixtesttask.R
 import com.example.goozixtesttask.network.Data
 import com.example.goozixtesttask.network.Original
+import com.example.goozixtesttask.ui.trendings.GiphyApiStatus
 
 @BindingAdapter("imageUrl")
 fun bindImage(imageView: ImageView, original: Original?) {
@@ -45,4 +47,25 @@ fun bindImage(imageView: ImageView, original: Original?) {
 fun bindRecyclerView(recyclerView: RecyclerView, dataList: List<Data>?) {
     val adapter = recyclerView.adapter as GifListAdapter
     adapter.submitList(dataList)
+}
+
+@BindingAdapter("giphyApiStatus")
+fun bindStatus(statusImageView: ImageView, status: GiphyApiStatus) {
+    when(status) {
+        GiphyApiStatus.LOADING -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.loading_animation)
+        }
+        GiphyApiStatus.DONE -> {
+            statusImageView.visibility = View.GONE
+        }
+        GiphyApiStatus.ERROR -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.ic_connection_error)
+        }
+        GiphyApiStatus.NO_MATCHES -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.ic_no_matches)
+        }
+    }
 }

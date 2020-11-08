@@ -9,13 +9,47 @@
             type="com.example.goozixtesttask.network.Data" />
     </data>
 
-    <ImageView
-        android:id="@+id/gif_image"
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:padding="5dp"
-        app:imageUrl="@{ data.images.original }"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        app:cardCornerRadius="@dimen/default_margin">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false">
+
+            <ImageView
+                android:id="@+id/gif_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:imageUrl="@{ data.images.original }"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_share"
+                android:layout_margin="@dimen/default_margin"
+                android:backgroundTint="@color/cardview_dark_background"
+                app:layout_constraintBottom_toBottomOf="@+id/gif_image"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/gif_img_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ data.title }"
+                android:layout_margin="@dimen/default_margin"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@id/gif_image"
+                app:layout_constraintTop_toTopOf="@id/gif_image"
+                tools:text="TITLE"
+                tools:ignore="RtlSymmetry" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </layout>

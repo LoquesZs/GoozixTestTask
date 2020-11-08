@@ -1,7 +1,6 @@
 package com.example.goozixtesttask.ui.trendings
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.goozixtesttask.R
 import com.example.goozixtesttask.databinding.TrendingsFragmentBinding
 import com.example.goozixtesttask.utils.GifListAdapter
+import com.example.goozixtesttask.utils.MarginItemDecoration
+import com.example.goozixtesttask.utils.OnSwipeListener
 
 class TrendingsFragment : Fragment() {
 
@@ -33,9 +34,21 @@ class TrendingsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         binding.searchButton.setOnClickListener {
-            Log.d("VMSQ", "${viewModel.models.value?.get(0)?.title}")
             viewModel.getGiphySearchModel()
         }
+
+        binding.gifList.addItemDecoration(
+            MarginItemDecoration(
+                resources.getDimension(R.dimen.default_margin).toInt())
+        )
+
+        binding.gifList.setOnTouchListener( object : OnSwipeListener(context) {
+            override fun onSwipeBottom() {
+                viewModel.getGiphyTrendingModel()
+            }
+        }
+        )
     }
 }

@@ -19,8 +19,6 @@ class GifListAdapter : ListAdapter<Data, GifListAdapter.DataViewHolder> (DiffCal
         holder.bind(data)
     }
 
-
-
     companion object DiffCallback : DiffUtil.ItemCallback<Data>() {
         override fun areItemsTheSame(oldItem: Data, newItem: Data): Boolean {
             return oldItem == newItem

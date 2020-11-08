@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 
+kapt {
+    generateStubs = true
+}
+
 android {
     compileSdkVersion 29
     dataBinding {
@@ -75,6 +79,21 @@ dependencies {
 
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
+    // Paging Library
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+    // Omega-R intent building library
+    implementation 'com.github.Omega-R.OmegaIntentBuilder:core:1.1.4'
+    // For extras
+    implementation 'com.github.Omega-R.OmegaIntentBuilder:annotations:1.1.4'
+    kapt 'com.github.Omega-R.OmegaIntentBuilder:processor:1.1.4'
+    // AndroidX
+    implementation 'com.github.Omega-R.OmegaIntentBuilder:core:1.1.5'
+    // For extras
+    implementation 'com.github.Omega-R.OmegaIntentBuilder:annotations:1.1.5'
+    kapt 'com.github.Omega-R.OmegaIntentBuilder:processor:1.1.5'
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

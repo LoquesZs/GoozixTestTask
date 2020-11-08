@@ -58,15 +58,4 @@ class TrendingsViewModel : ViewModel() {
             }
         }
     }
-
-    fun getGiphyCache() {
-        viewModelScope.launch {
-            try {
-
-            } catch (e: Exception) {
-
-            }
-        }
-    }
-
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.goozixtesttask.R
 import com.example.goozixtesttask.databinding.TrendingsFragmentBinding
@@ -29,6 +30,9 @@ class TrendingsFragment : Fragment() {
     }
     private lateinit var binding: TrendingsFragmentBinding
 
+    /** Sharing indicator
+     *  OmegaIntentBuilder downloads GIF that user want to share, and then builds share intent
+     *  So it's heavy feature that must be done to perform new share intent**/
     private var isSharing = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -61,13 +65,9 @@ class TrendingsFragment : Fragment() {
                 }
             }
         })
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         binding.searchButton.setOnClickListener {
+            viewModel.searchPageReset()
             viewModel.getGiphySearchModel()
             hideKeyboard()
         }
@@ -79,10 +79,16 @@ class TrendingsFragment : Fragment() {
 
         binding.gifList.setOnTouchListener( object : OnSwipeListener(context) {
             override fun onSwipeBottom() {
+                viewModel.searchPageReset()
                 viewModel.getGiphyTrendingModel()
             }
-        }
-        )
+        })
+
+        viewModel._currentSearchPage.observe(viewLifecycleOwner, Observer {
+            binding.currentPage.text = (it + 1).toString()
+        })
+
+        return binding.root
     }
 
     private fun hideKeyboard() {

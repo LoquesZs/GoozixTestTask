@@ -5,7 +5,14 @@ import com.squareup.moshi.Json
 //Model classes for Giphy response
 //Ignore discarded Meta and Pagination objects
 
-data class GiphyModel (@Json(name = "data") val gifList: List<Data>)
+data class GiphyModel (
+    @Json(name = "data") val gifList: List<Data>,
+    val pagination: Pagination
+)
+
+data class Pagination (
+    @Json(name = "total_count") val total: Int
+)
 
 data class Data (
     val id : String,

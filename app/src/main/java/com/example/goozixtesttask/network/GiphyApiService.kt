@@ -9,9 +9,13 @@ import retrofit2.http.Query
 
 private const val GIPHY_BASE_URL = " https://api.giphy.com/v1/gifs/"
 private const val API_KEY = "CTnxGn5EhQMdBVjMiiCfdF2RqISxV5vB"
-private const val LIMIT_VALUE = "8"
-private const val RATING_VALUE = "g"
+internal const val DEFAULT_LIMIT = 10
+private const val DEFAULT_RATING = "g"
+private const val DEFAULT_LANGUAGE = "en"
 
+/**
+ * Retrofit service, interface to GiphyAPI
+ * **/
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -23,11 +27,21 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface GiphyApiService {
-    @GET("trending?api_key=$API_KEY&limit=$LIMIT_VALUE&rating=$RATING_VALUE")
-    suspend fun getTrendingModel(): GiphyModel
+    @GET("trending?api_key=$API_KEY")
+    suspend fun getTrendingModel(
+        @Query("limit") limit: Int = DEFAULT_LIMIT,
+        @Query("rating") rating: String = DEFAULT_RATING,
+        @Query("offset") offset: Int
+    ): GiphyModel
 
-    @GET("search?api_key=$API_KEY&limit=$LIMIT_VALUE&offset=0&rating=$RATING_VALUE&lang=en")
-    suspend fun getSearchModel(@Query("q") searchRequest: String): GiphyModel
+    @GET("search?api_key=$API_KEY&lang=en")
+    suspend fun getSearchModel(
+        @Query("limit") limit: Int = DEFAULT_LIMIT,
+        @Query("rating") rating: String = DEFAULT_RATING,
+        @Query("offset") offset: Int,
+        @Query("q") searchRequest: String,
+        @Query("lang") language: String = DEFAULT_LANGUAGE
+    ): GiphyModel
 }
 
 object GiphyApi {

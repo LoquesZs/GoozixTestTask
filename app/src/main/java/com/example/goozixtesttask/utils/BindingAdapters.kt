@@ -51,6 +51,8 @@ fun bindRecyclerView(recyclerView: RecyclerView, dataList: List<Data>?) {
     adapter.submitList(dataList)
 }
 
+/** GiphyAPI Response status handler**/
+
 @BindingAdapter("giphyApiStatus")
 fun bindStatus(statusImageView: ImageView, status: GiphyApiStatus) {
     when(status) {
